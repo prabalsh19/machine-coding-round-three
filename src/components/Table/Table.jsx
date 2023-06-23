@@ -6,11 +6,25 @@ export const Table = () => {
   const [flag, setFlag] = useState(false);
   const alphabeticalSort = ["product_name", "ingredients"];
   const sortHandler = (e) => {
-    setSnacks((prev) =>
-      [...prev].sort((a, b) =>
-        flag ? a[e.target.id] - b[e.target.id] : b[e.target.id] - a[e.target.id]
-      )
-    );
+    alphabeticalSort.some((element) => element === e.target.id)
+      ? setSnacks((prev) =>
+          [...prev].sort((a, b) =>
+            flag
+              ? a[e.target.id] < b[e.target.id]
+                ? -1
+                : 1
+              : a[e.target.id] < b[e.target.id]
+              ? 1
+              : -1
+          )
+        )
+      : setSnacks((prev) =>
+          [...prev].sort((a, b) =>
+            flag
+              ? a[e.target.id] - b[e.target.id]
+              : b[e.target.id] - a[e.target.id]
+          )
+        );
     setFlag(!flag);
   };
   return (
